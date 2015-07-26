@@ -1,9 +1,9 @@
 import math.abs
 
 object progfun2_4 {
-  val tolerance = 0.0001                          //> tolerance  : Double = 1.0E-4
+  val tolerance = 0.0001
 	def isCloseEnough(x: Double, y: Double) =
-		abs((x-y) / x) < tolerance        //> isCloseEnough: (x: Double, y: Double)Boolean
+		abs((x-y) / x) < tolerance
 	
 	def fixedPoint(f: Double => Double)(firstGuess: Double) = {
 		def iterate(guess: Double): Double = {
@@ -13,10 +13,11 @@ object progfun2_4 {
 			else iterate(next)
 		}
 		iterate(firstGuess)
-	}                                         //> fixedPoint: (f: Double => Double)(firstGuess: Double)Double
+	}
 
-	fixedPoint(x => 1 + x/2)(1)               //> res0: Double = 1.9998779296875
-	def sqrt(x: Double) = fixedPoint(y=> (y+ x/y) / 2)(1)
-                                                  //> sqrt: (x: Double)Double
-  sqrt(2)                                         //> res1: Double = 1.4142135623746899
+	fixedPoint(x => 1 + x/2)(3)
+	def averageDamp(f: Double => Double)(x: Double) = (x + f(x)) / 2
+	
+	def sqrt(x: Double) = fixedPoint(y=> y+ x / y)(1)
+	averageDamp(y => y + x/y)
 }
